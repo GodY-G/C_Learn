@@ -1,6 +1,6 @@
 #include <string.h>
 #include <stdbool.h>
-
+//暴力解法：双重循环，时间复杂度O(n^2)，空间复杂度O(1)
 bool isAnagram(char* s, char* t) {
     // 1️⃣ 长度不同，一定不是异位词
     if (strlen(s) != strlen(t)) {
@@ -28,4 +28,32 @@ bool isAnagram(char* s, char* t) {
     }
     
     return true;  // 所有计数都为0，是异位词
+}
+//哈希表 计数排序
+bool isAnagram(char* s, char* t) {
+    int hash1[26];
+    int hash2[26];
+
+    int len1 = strlen(s);
+    int len2 = strlen(t);
+    for(int i = 0;i < 26;++i){
+        hash1[i] = 0;
+        hash2[i] = 0;
+    }
+
+    if(len1 != len2){
+        return false;
+    }
+
+    for(int i = 0;i < len1;++i){
+        hash1[s[i] - 'a']++;
+        hash2[t[i] - 'a']++;
+    }
+
+    for(int i = 0;i < 26;++i){
+        if(hash1[i] != hash2[i]){
+            return false;
+        }
+    }
+    return true;
 }
