@@ -2,7 +2,7 @@
 - now:
     [前六周作业](http://47.115.215.212:8080/00_%E5%89%8D%E8%A8%80/)
     [LeetCode408题单](https://leetcode.cn/problem-list/rBFUJTRm/)
-    [PAT_ADVANCED]([https://leetcode.cn/problem-list/rBFUJTRm/](https://pintia.cn/problem-sets/994805342720868352/exam/problems/type/7))
+    [PAT_ADVANCED](https://pintia.cn/problem-sets/994805342720868352/exam/problems/type/7)
 
 ## 📖 项目简介
 本项目是一个C语言算法学习仓库。
