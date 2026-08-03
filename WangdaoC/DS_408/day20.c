@@ -25,3 +25,5 @@ void merge(Linklist A,Linklist B,Linklist C){
   if(pa != NULL)pc->next = pa;
   if(pb != NULL)pc->next = pb;
 }
+
+//时间复杂度：O(n+m)，空间复杂度：O(1)
