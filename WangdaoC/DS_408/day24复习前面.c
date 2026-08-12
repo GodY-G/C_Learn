@@ -1,6 +1,6 @@
 #include<stdio.h>
 #include<stdlib.h>
-
+#include<stdbool.h>
 #define maxsize 100
 
 //一.结构体定义
@@ -97,3 +97,131 @@ Sqlist merge(Sqlist a,Sqlist b){
   }
   return -1;
  }
+
+ //链表逆置(头插法)
+void reverse_head(Linklist L){
+  Linklist p =  L->next;
+  L->next = NULL;
+  while(p){
+    Linklist q = p->next;
+    p->next = L->next;
+    L->next = p;
+    p = q;
+  }
+}
+
+//链表逆置三指针法
+void reverse_3ptr(Linklist L){
+  Linklist work = L->next;
+  Linklist pre = NULL;
+  while(work){
+    Linklist next = work->next;
+    work->next = pre;
+    pre = work;
+    work = next;
+  }
+  L->next = pre;
+}
+
+//删除链表中全部的x
+void del_X(Linklist L,int x){
+  Linklist p = L->next;
+  while(p->next){
+    if(p->next->data == x){
+      p = p->next;
+      Linklist q = p->next;
+      p->next = q->next;
+      free(q);
+    }else{
+      p = p->next;
+    }
+  }
+}
+
+//找到倒数第k个节点
+int last_k(Linklist L,int k){
+  Linklist fast = L->next,slow = L->next;
+  int cnt = 0;
+  while(cnt < k && fast){
+    fast = fast->next;
+    cnt++;
+  }
+  if(cnt < k)return -1;
+  while(fast){
+    fast = fast->next;
+    slow = slow->next;
+  }
+  return slow->data;
+}
+
+//找到中间节点
+int find_mid(Linklist L){
+  Linklist p = L->next,q = L->next;
+  while(p && p->next){
+    p = p->next->next;
+    q = q->next;
+  }
+  return q->data;
+}
+
+//判断是否有环
+LNode* has_cycle(Linklist L) {
+    LNode *fast = L, *slow = L;
+    while (fast != NULL && fast->next != NULL) {
+        slow = slow->next;
+        fast = fast->next->next;
+        if (slow == fast) return slow;  // 相遇，有环
+    }
+    return NULL;
+}
+
+//找到环入口
+LNode* find_cycle_entry(Linklist L) {
+    LNode *meet = has_cycle(L);
+    if (meet == NULL) return NULL;
+    LNode *p = L;
+    while (p != meet) {  // 头到入口 = 相遇点到入口
+        p = p->next;
+        meet = meet->next;
+    }
+    return p;
+}
+
+//合并两个升序链表
+Linklist combine_2linklist(Linklist A, Linklist B) {
+    Linklist C = (Linklist)malloc(sizeof(LNode));
+    C->next = NULL;
+    Linklist pc = C;                   // pc 指向头结点，不是 C->next！
+    Linklist pa = A->next, pb = B->next;
+    while (pa && pb) {
+        if (pa->data <= pb->data) {
+            pc->next = pa;             // 先接到 C 上
+            pc = pa;                   // 再后移
+            pa = pa->next;
+        } else {
+            pc->next = pb;
+            pc = pb;
+            pb = pb->next;
+        }
+    }
+    pc->next = (pa ? pa : pb);         // 剩余直接接上
+    return C;
+}Linklist combine_2linklist(Linklist A, Linklist B) {
+    Linklist C = (Linklist)malloc(sizeof(LNode));
+    C->next = NULL;
+    Linklist pc = C;                   // pc 指向头结点，不是 C->next！
+    Linklist pa = A->next, pb = B->next;
+    while (pa && pb) {
+        if (pa->data <= pb->data) {
+            pc->next = pa;             // 先接到 C 上
+            pc = pa;                   // 再后移
+            pa = pa->next;
+        } else {
+            pc->next = pb;
+            pc = pb;
+            pb = pb->next;
+        }
+    }
+    pc->next = (pa ? pa : pb);         // 剩余直接接上
+    return C;
+}
